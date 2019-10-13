@@ -1,5 +1,5 @@
 This repository contains code of a series of new algorithms for online FWER control. 
-It also contains code for reproducing all the figures in the corresponding paper which is available at https://arxiv.org/abs/1905.11465
+It also contains code for reproducing all the figures in the corresponding paper.
 
 ====================================Common guidance ========================================
 
