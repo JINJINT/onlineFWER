@@ -27,7 +27,7 @@ from generateHPY import *
 
 ################ Running entire framework  ####################
 
-def run_single(non_range, NUMRUN, NUMHPY, NUMDRAWS, mu_N, mu_A, tau, lbd, pi, alpha0, markov_lag, FWER_proc, gamma_vec_exponent=2, sigma = 1, verbose = False, rndseed = 0):
+def run_single(non_range, NUMRUN, NUMHPY, NUMDRAWS, mu_N, mu_A, tau, lbd, pi, alpha0, markov_lag, FWER_proc, gamma_vec_exponent=2, two_sided = False, sigma = 1, verbose = False, rndseed = 0):
 
     if non_range < pi:
         raiseError(ValueError,'the range of non-nulls should not be smaller than pi')
@@ -38,8 +38,11 @@ def run_single(non_range, NUMRUN, NUMHPY, NUMDRAWS, mu_N, mu_A, tau, lbd, pi, al
     num_alt = np.sum(Hypo)
        
     dir_name = './dat'
-    filename = 'MN%.2f_MA%.1f_tau%.2f_lbd%.2f_Si%.1f_FWER%d_NH%d_ND%d_L%d_R%.3f_PM%.2f_alpha0%.2f_NR%d' % (mu_N, mu_A, tau, lbd, sigma, FWER_proc, NUMHPY, NUMDRAWS, markov_lag, non_range, pi, alpha0, NUMRUN)
-    
+    if two_sided:
+        filename = 'MN%.2f_MA%.1f_tau%.2f_lbd%.2f_Si%.1f_FWER%d_NH%d_ND%d_L%d_R%.3f_PM%.2f_alpha0%.2f_gamma%.2f_two_sided_NR%d' % (mu_N, mu_A, tau, lbd, sigma, FWER_proc, NUMHPY, NUMDRAWS, markov_lag, non_range, pi, alpha0,gamma_vec_exponent, NUMRUN)
+    else:
+        filename = 'MN%.2f_MA%.1f_tau%.2f_lbd%.2f_Si%.1f_FWER%d_NH%d_ND%d_L%d_R%.3f_PM%.2f_alpha0%.2f_gamma%.2f_one_sided_NR%d' % (mu_N, mu_A, tau, lbd, sigma, FWER_proc, NUMHPY, NUMDRAWS, markov_lag, non_range, pi, alpha0, gamma_vec_exponent, NUMRUN)
+
     # ----------- initialize result vectors and mats ------------- ##
     pval_mat = np.zeros([NUMHPY, NUMRUN]) 
     rej_mat = np.zeros([NUMHPY, NUMRUN])
@@ -64,7 +67,7 @@ def run_single(non_range, NUMRUN, NUMHPY, NUMDRAWS, mu_N, mu_A, tau, lbd, pi, al
 
         # Create a vector of  different mu gaps
         muA = np.ones(NUMHPY)*mu_A
-        this_exp = row_exp_new_batch(NUMHPY, NUMDRAWS, Hypo, mu_N, mu_A, markov_lag) 
+        this_exp = row_exp_new_batch(NUMHPY, NUMDRAWS, Hypo, mu_N, mu_A, markov_lag, two_sided) 
 
 
         #%%%%%%%%% Run experiments: Get sample and p-values etc. %%%%%%%%%%%%%

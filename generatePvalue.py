@@ -5,7 +5,7 @@ from scipy.stats import bernoulli
 
 class row_exp_new_batch:
 
-    def __init__(self, NUMHYP, numdraws, alt_vec, mu_N, mu_A_vec, markov_lag):
+    def __init__(self, NUMHYP, numdraws, alt_vec, mu_N, mu_A_vec, markov_lag, two_sided = True):
         self.numhyp = NUMHYP
         self.alt_vec = alt_vec
         self.mu_N = mu_N
@@ -13,6 +13,7 @@ class row_exp_new_batch:
         self.pvec = np.zeros(NUMHYP)
         self.numdraws = numdraws
         self.markov_lag = markov_lag
+        self.two_sided = two_sided
 
 
     def gauss_two_mix(self, sigma = 1, markov_lag = 0, rndsd = 0):
@@ -37,7 +38,10 @@ class row_exp_new_batch:
                 Z[i] = mu_i + np.random.randn(1)*np.sqrt(var_i)
 
         # Compute p-values and save
-        self.pvec = [(1 - norm.cdf(z)) for z in Z]
+        if self.two_sided:
+            self.pvec = [2*(1 - norm.cdf(abs(z))) for z in Z]    
+        else:
+            self.pvec = [(1 - norm.cdf(z)) for z in Z]  
 
 
 

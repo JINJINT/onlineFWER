@@ -9,7 +9,7 @@ from generateHPY import*
 from toimport import*
 
 
-def plot_results(plot_style, whichrun, FWERrange, pirange, non_range, hyprange, tau, lbd, muNrange, mu_A, sigma, NUMHYP, num_runs, markov_lag, alpha0, mode, NUMDRAWS = 1):
+def plot_results(plot_style, whichrun, FWERrange, pirange, non_range, hyprange, tau, lbd, muNrange, mu_A, sigma, NUMHYP, num_runs, markov_lag, alpha0, mode,gamma = 2, two_sided=False, NUMDRAWS = 1):
 
     plot_dirname = './plots'
     
@@ -32,8 +32,11 @@ def plot_results(plot_style, whichrun, FWERrange, pirange, non_range, hyprange, 
                 all_filenames = []
 
                 for d, non_ran in enumerate(non_range):
+                    if two_sided:
+                        filename_pre = 'MN%.2f_MA%.1f_tau%.2f_lbd%.2f_Si%.1f_FWER%d_NH%d_ND%d_L%d_R%.3f_PM%.2f_alpha0%.2f_gamma%.2f_two_sided' % (mu_N, mu_A, tau, lbd, sigma, FWER, NUMHYP, NUMDRAWS, markov_lag, non_ran, pirange[d], alpha0, gamma)
+                    else:
+                        filename_pre = 'MN%.2f_MA%.1f_tau%.2f_lbd%.2f_Si%.1f_FWER%d_NH%d_ND%d_L%d_R%.3f_PM%.2f_alpha0%.2f_gamma%.2f_one_sided' % (mu_N, mu_A, tau, lbd, sigma, FWER, NUMHYP, NUMDRAWS, markov_lag, non_ran, pirange[d], alpha0, gamma)
 
-                    filename_pre = 'MN%.2f_MA%.1f_tau%.2f_lbd%.2f_Si%.1f_FWER%d_NH%d_ND%d_L%d_R%.3f_PM%.2f_alpha0%.2f' % (mu_N, mu_A, tau, lbd, sigma, FWER, NUMHYP, NUMDRAWS, markov_lag, non_ran, pirange[d], alpha0 )
                     filenames = [filename for filename in os.listdir('./dat') if filename.startswith(filename_pre)]
                     if all_filenames == []:
                         all_filenames = filenames
@@ -111,8 +114,12 @@ def plot_results(plot_style, whichrun, FWERrange, pirange, non_range, hyprange, 
             elif mode == 2:
                 x_label = 'C'
                 extra_info = str(PM_vec[0])             
-                
-            filename = 'PowFWERvsPI_FWER%s_MN%.2f_MA%.1f_Si%.1f_NH%d_ND%d_L%d_MOD%d_%s' %  (FWERstr, mu_N, mu_A, sigma, NUMHYP, NUMDRAWS, markov_lag, mode, extra_info)
+            
+            if two_sided:    
+                filename = 'PowFWERvsPI_FWER%s_MN%.2f_MA%.1f_Si%.1f_NH%d_ND%d_L%d_MOD%d_gamma%.2f_two_sided_%s' %  (FWERstr, mu_N, mu_A, sigma, NUMHYP, NUMDRAWS, markov_lag, mode, gamma, extra_info)
+            else:
+                 filename = 'PowFWERvsPI_FWER%s_MN%.2f_MA%.1f_Si%.1f_NH%d_ND%d_L%d_MOD%d_gamma%.2f_one_sided_%s' %  (FWERstr, mu_N, mu_A, sigma, NUMHYP, NUMDRAWS, markov_lag, mode, gamma, extra_info)
+
             plot_errors_mat_both(xs, TDR_av, FWER_av, TDR_std, FWER_std, legends_list, plot_dirname, filename, x_label, 'FWER / Power')
 
 
@@ -133,7 +140,11 @@ def plot_results(plot_style, whichrun, FWERrange, pirange, non_range, hyprange, 
             
                 all_filenames = []
                 for d, non_ran in enumerate(non_range):
-                    filename_pre = 'MN%.2f_MA%.1f_tau%.2f_Si%.1f_FWER%d_NH%d_ND%d_L%d_R%.3f_PM%.2f_alpha0%.2f' % (mu_N, mu_A, tau, sigma, FWER, NUMHYP, NUMDRAWS, markov_lag, non_ran, pirange[d], alpha0 )
+                    if two_sided:
+                        filename_pre = 'MN%.2f_MA%.1f_tau%.2f_lbd%.2f_Si%.1f_FWER%d_NH%d_ND%d_L%d_R%.3f_PM%.2f_alpha0%.2f_gamma%.2f_two_sided' % (mu_N, mu_A, tau, lbd, sigma, FWER, NUMHYP, NUMDRAWS, markov_lag, non_ran, pirange[d], alpha0, gamma)
+                    else:
+                        filename_pre = 'MN%.2f_MA%.1f_tau%.2f_lbd%.2f_Si%.1f_FWER%d_NH%d_ND%d_L%d_R%.3f_PM%.2f_alpha0%.2f_gamma%.2f_one_sided' % (mu_N, mu_A, tau, lbd, sigma, FWER, NUMHYP, NUMDRAWS, markov_lag, non_ran, pirange[d], alpha0, gamma)
+
                     filenames = [filename for filename in os.listdir('./dat') if filename.startswith(filename_pre)]
                     if all_filenames == []:
                         all_filenames = filenames
@@ -214,7 +225,11 @@ def plot_results(plot_style, whichrun, FWERrange, pirange, non_range, hyprange, 
 
 
             ##### FWER vs pi #####
-            filename = 'PowFWERvsPI_FWER%s_MN%s_MA%.1f_Si%.1f_NH%d_ND%d_L%d_MOD%d_%s' %  (FWER, muNstr, mu_A, sigma, NUMHYP, NUMDRAWS, markov_lag, mode, extra_info)
+            if two_sided:    
+                filename = 'PowFWERvsPI_FWER%s_MN%.2f_MA%.1f_Si%.1f_NH%d_ND%d_L%d_MOD%d_gamma%.2f_two_sided_%s' %  (FWER, muNstr, mu_A, sigma, NUMHYP, NUMDRAWS, markov_lag, mode, gamma, extra_info)
+            else:
+                 filename = 'PowFWERvsPI_FWER%s_MN%.2f_MA%.1f_Si%.1f_NH%d_ND%d_L%d_MOD%d_gamma%.2f_one_sided_%s' %  (FWER, muNstr, mu_A, sigma, NUMHYP, NUMDRAWS, markov_lag, mode, gamma, extra_info)
+
             plot_errors_mat_both(xs, TDR_av, FWER_av, TDR_std, FWER_std, muN_list, plot_dirname, filename, x_label, 'FWER / Power')
 
 
