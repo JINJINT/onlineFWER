@@ -16,6 +16,7 @@ def main():
     FWERrange = str2list(args.FWERrange)
     muNrange = str2list(args.mu_N, 'float')
     muArange = str2list(args.mu_A, 'float')
+    sigmarange = str2list(args.sigma_N, 'float') 
     plotstyle = str2list(args.plot_style)
     pirange = str2list(args.pirange, 'float') 
     mode = args.mode
@@ -41,34 +42,35 @@ def main():
     
     ########%%%%%%%%%%%%%%%%% RUN EXPERIMENT %%%%%%%%########################
     for mu_A in muArange:   
-        def singlepi(i):
-            for mu_N in muNrange:
-                for FWER in FWERrange:
-                    pi = pirange[i]
-                    if args.two_sided:
-                        filename_pre = 'MN%.2f_MA%.1f_tau%.2f_lbd%.2f_Si1.0_FWER%d_NH%d_ND%d_L%d_R%.3f_PM%.2f_alpha0%.2f_gamma%.2f_two_sided_NR%d' % (mu_N, mu_A, args.tau, args.lbd, FWER, args.num_hyp, 1, args.markov_lag, non_range[i], pi, args.alpha0, args.gamma, args.num_runs)
-                    else:
-                        filename_pre = 'MN%.2f_MA%.1f_tau%.2f_lbd%.2f_Si1.0_FWER%d_NH%d_ND%d_L%d_R%.3f_PM%.2f_alpha0%.2f_gamma%.2f_one_sided_NR%d' % (mu_N, mu_A, args.tau, args.lbd, FWER, args.num_hyp, 1, args.markov_lag, non_range[i], pi, args.alpha0, args.gamma, args.num_runs)
+        for sigma_N in sigmarange:
+            def singlepi(i):
+                for mu_N in muNrange:
+                    for FWER in FWERrange:
+                        pi = pirange[i]
+                        if args.two_sided:
+                            filename_pre = 'MN%.2f_MA%.1f_tau%.2f_lbd%.2f_Si%.1f_FWER%d_NH%d_ND%d_L%d_R%.3f_PM%.2f_alpha0%.2f_gamma%.2f_two_sided_NR%d' % (mu_N, mu_A, args.tau, args.lbd, sigma_N, FWER, args.num_hyp, 1, args.markov_lag, non_range[i], pi, args.alpha0, args.gamma, args.num_runs)
+                        else:
+                            filename_pre = 'MN%.2f_MA%.1f_tau%.2f_lbd%.2f_Si%.1f_FWER%d_NH%d_ND%d_L%d_R%.3f_PM%.2f_alpha0%.2f_gamma%.2f_one_sided_NR%d' % (mu_N, mu_A, args.tau, args.lbd, sigma_N, FWER, args.num_hyp, 1, args.markov_lag, non_range[i], pi, args.alpha0, args.gamma, args.num_runs)
 
-                    all_filenames = [filename for filename in os.listdir('./dat') if filename.startswith(filename_pre)]                
+                        all_filenames = [filename for filename in os.listdir('./dat') if filename.startswith(filename_pre)]                
 
-                    # Run experiment if data doesn't exist yet
-                    if all_filenames == []:
-                        print("Running experiment for FWER procedure %s and pi %.1f and muN %.1f  and muA %.1f with lag %d and alpha0 %.2f and tau %.2f and lbd %.2f and non_range %.3f and gamma_vec_exponent %.2f " % (proc_list[FWER-1], pi, mu_N, mu_A, args.markov_lag, args.alpha0, args.tau, args.lbd, non_range[i], args.gamma))
-                        run_single(non_range[i], args.num_runs, args.num_hyp, 1, mu_N, mu_A, args.tau, args.lbd, pi, args.alpha0, args.markov_lag, FWER, args.gamma, args.two_sided)
-                    else:
-                        print("Experiments for FWER procedure %s and pi %.1f and muN %.1f and muA %.1f with lag %d and alpha0 %.2f and tau %.2f and lbd %.2f and non_range %.3f and gamma_vec_exponent %.2f are already run" % (proc_list[FWER-1], pi, mu_N, mu_A, args.markov_lag, args.alpha0, args.tau, args.lbd, non_range[i], args.gamma))
-        with Pool() as p:
-            TDR_vec = p.map(singlepi, range(len(pirange)))
-            p.close()
-            p.join()
-            p.terminate()   
-            p.restart() 
+                        # Run experiment if data doesn't exist yet
+                        if all_filenames == []:
+                            print("Running experiment for FWER procedure %s and pi %.1f and muN %.1f  and muA %.1f and sigmaN %.1f with lag %d and alpha0 %.2f and tau %.2f and lbd %.2f and non_range %.3f and gamma_vec_exponent %.2f " % (proc_list[FWER-1], pi, mu_N, mu_A, sigma_N, args.markov_lag, args.alpha0, args.tau, args.lbd, non_range[i], args.gamma))
+                            run_single(non_range[i], args.num_runs, args.num_hyp, 1, mu_N, mu_A, args.tau, args.lbd, pi, args.alpha0, args.markov_lag, FWER, args.gamma, args.two_sided, sigma_N)
+                        else:
+                            print("Experiments for FWER procedure %s and pi %.1f and muN %.1f and muA %.1f and sigmaN %.1f with lag %d and alpha0 %.2f and tau %.2f and lbd %.2f and non_range %.3f and gamma_vec_exponent %.2f are already run" % (proc_list[FWER-1], pi, mu_N, mu_A, sigma_N, args.markov_lag, args.alpha0, args.tau, args.lbd, non_range[i], args.gamma))
+            with Pool() as p:
+                TDR_vec = p.map(singlepi, range(len(pirange)))
+                p.close()
+                p.join()
+                p.terminate()   
+                p.restart() 
 
-        # Plot different measures over hypotheses for different FWER
-        print("Now plotting ... ")
-        for style in plotstyle:
-            plot_results(style, 0, FWERrange, pirange, non_range, hyprange, args.tau, args.lbd, muNrange, mu_A, 1, args.num_hyp, args.num_runs, args.markov_lag, args.alpha0, mode, args.gamma, args.two_sided)      
+            # Plot different measures over hypotheses for different FWER
+            print("Now plotting ... ")
+            for style in plotstyle:
+                plot_results(style, 0, FWERrange, pirange, non_range, hyprange, args.tau, args.lbd, muNrange, mu_A, sigma_N, args.num_hyp, args.num_runs, args.markov_lag, args.alpha0, mode, args.gamma, args.two_sided)      
 
 '''
 Algorithms:
@@ -94,9 +96,11 @@ if __name__ == "__main__":
     parser.add_argument('--alpha0', type=float, default = 0.2) # FWER level
     parser.add_argument('--tau', type=float, default = 0.5) # discarding level
     parser.add_argument('--lbd', type=float, default = 0.5) # adaptive level    
-    parser.add_argument('--mu-N', type=str, default = "0, -1") # mu_N for gaussian tests
-    parser.add_argument('--mu-A', type=str, default = "4") # mu_A for gaussian tests
-    parser.add_argument('--two-sided', action = 'store_true') # mu_A for gaussian tests
+    parser.add_argument('--mu-N', type=str, default = "0") # mu_N for gaussian tests
+    parser.add_argument('--mu-A', type=str, default = "4, 5") # mu_A for gaussian tests
+    parser.add_argument('--sigma-N', type=str, default = "0.1, 0.5, 1") # sigma_N for gaussian test
+    # parser.add_argument('--sigma-A', type=str, default = "2, 4") # sigma_A for gaussian test
+    parser.add_argument('--two-sided', action = 'store_false') # mu_A for gaussian tests
     parser.add_argument('--gamma', type=float, default = 2) # the order of gamma sequence
     parser.add_argument('--pirange', type=str, default = '0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9') # range of pi_A
     parser.add_argument('--markov-lag', type=int, default = 0) # lag in the local dependence
@@ -112,12 +116,11 @@ if __name__ == "__main__":
 # python main.py --alpha0 0.1
 
 ##=== influence of gamma
-# python main.py --gamma 1.1
+# python main.py --gamma 1.01
 # python main.py --gamma 1.5
 # python main.py --gamma 5
 
 ##=== influence of lag
-# python main.py --markov-lag 100
 # python main.py --markov-lag 50
 # python main.py --markov-lag 10
 

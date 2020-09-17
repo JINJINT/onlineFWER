@@ -67,12 +67,12 @@ def run_single(non_range, NUMRUN, NUMHPY, NUMDRAWS, mu_N, mu_A, tau, lbd, pi, al
 
         # Create a vector of  different mu gaps
         muA = np.ones(NUMHPY)*mu_A
-        this_exp = row_exp_new_batch(NUMHPY, NUMDRAWS, Hypo, mu_N, mu_A, markov_lag, two_sided) 
+        this_exp = row_exp_new_batch(NUMHPY, NUMDRAWS, Hypo, mu_N, mu_A, markov_lag, two_sided, sigma) 
 
 
         #%%%%%%%%% Run experiments: Get sample and p-values etc. %%%%%%%%%%%%%
         # Generate p-value from mu-vec, with same random seed 
-        this_exp.gauss_two_mix(sigma, markov_lag, rndsd)
+        this_exp.gauss_two_mix(markov_lag, rndsd)
         pval_mat[:, l] = this_exp.pvec
         
 
