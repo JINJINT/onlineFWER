@@ -10,6 +10,6 @@ do
 echo "Submitting job for experiment "$experiment_name" with para tau = "$tau" and lbd = "$lbd
 command="python3 main.py --tau "$tau" --lbd "$lbd
 # construct final call based on machine
-sbatch --time=06:00:00 -p RM-shared -J "tau"$tau"_"lbd"$lbd$experiment_name $command
+sbatch --time=06:00:00 -p RM-shared -J "tau"$tau"_lbd"$lbd$experiment_name $command
 done
 done    
