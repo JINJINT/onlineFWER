@@ -90,8 +90,8 @@ Algorithms:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--FWERrange', type=str, default = "1, 2, 3, 4") # choice of algorithms
-    parser.add_argument('--num-runs', type=int, default = 200) # number of independent trials
-    parser.add_argument('--num-hyp', type=int, default = 100) # number of hypotheses
+    parser.add_argument('--num-runs', type=int, default = 2000) # number of independent trials
+    parser.add_argument('--num-hyp', type=int, default = 1000) # number of hypotheses
     parser.add_argument('--alpha0', type=float, default = 0.2) # FWER level
     parser.add_argument('--tau', type=float, default = 0.5) # discarding level
     parser.add_argument('--lbd', type=float, default = 0.5) # adaptive level    
