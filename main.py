@@ -96,7 +96,7 @@ if __name__ == "__main__":
     parser.add_argument('--tau', type=float, default = 0.5) # discarding level
     parser.add_argument('--lbd', type=float, default = 0.5) # adaptive level    
     parser.add_argument('--mu-N', type=str, default = "0") # mu_N for gaussian tests
-    parser.add_argument('--mu-A', type=str, default = "4, 5, 6") # mu_A for gaussian tests
+    parser.add_argument('--mu-A', type=str, default = "6, 7") # mu_A for gaussian tests
     #parser.add_argument('--sigma-N', type=float, default = 1) # sigma_N for gaussian test
     # parser.add_argument('--sigma-A', type=str, default = "2, 4") # sigma_A for gaussian test
     parser.add_argument('--two-sided', action = 'store_false') # mu_A for gaussian tests
