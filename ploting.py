@@ -63,8 +63,8 @@ def plot_errors_mat_both(xs, matrix_av_pow, matrix_av_fwer, matrix_err_pow, matr
             else:
                 color = plot_col[i]    
             ax.errorbar(xs, ys, yerr = zs, color = color, marker = plot_mark[i % len(plot_mark)], linestyle = plot_style[i%len(plot_style)], lw = 2, markersize = 5, label = labels[i])
-    lgd = ax.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3, handletextpad=0.3,
-                ncol=min(no_lines,2), mode="expand", borderaxespad=0., prop={'size': 10})
+    #lgd = ax.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3, handletextpad=0.3,
+    #            ncol=min(no_lines,2), mode="expand", borderaxespad=0., prop={'size': 10})
 
     for j in range(no_lines):
             ys = np.array(matrix_av_fwer[j])
@@ -73,8 +73,9 @@ def plot_errors_mat_both(xs, matrix_av_pow, matrix_av_fwer, matrix_err_pow, matr
                 color = colordic[labels[j]]
             else:
                 color = plot_col[j]  
-            ax.errorbar(xs, ys, yerr = zs, color = color, marker = plot_mark[j % len(plot_mark)], linestyle = plot_style[j%len(plot_style)], lw= 2, markersize = 5, label = None)
-    ax.hlines(y=0.2, xmin=min(xs), xmax = max(xs), color='k')
+            ax.errorbar(xs, ys, yerr = zs, color = color, marker = plot_mark[j % len(plot_mark)], linestyle = plot_style[j%len(plot_style)], lw= 2, markersize = 5, label = None, alpha = 0.7)
+    
+    ax.hlines(y=0.2, xmin=min(xs), xmax = max(xs), color='k', lw =3)
     ax.set_xlabel(xlabel, labelpad=15)
     ax.set_ylabel(ylabel, labelpad=15)
     ax.set_ylim((0, 1))
@@ -88,9 +89,5 @@ def plot_errors_mat_both(xs, matrix_av_pow, matrix_av_fwer, matrix_err_pow, matr
     ax.set_yticklabels(ytl)
     ax.grid(True)
     saveplot(dirname, filename, ax)
-    
 
-
-
-    
 
