@@ -40,7 +40,7 @@ class row_exp_new_batch:
 
         # Compute p-values and save
         if self.two_sided:
-            self.pvec = [2*(1 - norm.cdf(abs(z))) for z in Z]    
+            self.pvec = [2*(1 - norm.cdf(abs(z)-2)) for z in Z]    
         else:
             self.pvec = [(1 - norm.cdf(z)) for z in Z]  
 
