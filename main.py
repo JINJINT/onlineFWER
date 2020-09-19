@@ -89,14 +89,14 @@ Algorithms:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--FWERrange', type=str, default = "1, 2, 3, 4") # choice of algorithms
+    parser.add_argument('--FWERrange', type=str, default = "1") # choice of algorithms
     parser.add_argument('--num-runs', type=int, default = 2000) # number of independent trials
     parser.add_argument('--num-hyp', type=int, default = 1000) # number of hypotheses
     parser.add_argument('--alpha0', type=float, default = 0.2) # FWER level
     parser.add_argument('--tau', type=float, default = 0.5) # discarding level
     parser.add_argument('--lbd', type=float, default = 0.5) # adaptive level    
-    parser.add_argument('--mu-N', type=str, default = "0") # mu_N for gaussian tests
-    parser.add_argument('--mu-A', type=str, default = "6, 7") # mu_A for gaussian tests
+    parser.add_argument('--mu-N', type=str, default = "-2") # mu_N for gaussian tests
+    parser.add_argument('--mu-A', type=str, default = "4") # mu_A for gaussian tests
     #parser.add_argument('--sigma-N', type=float, default = 1) # sigma_N for gaussian test
     # parser.add_argument('--sigma-A', type=str, default = "2, 4") # sigma_A for gaussian test
     parser.add_argument('--two-sided', action = 'store_false') # mu_A for gaussian tests
