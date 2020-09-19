@@ -8,6 +8,7 @@ do
 for lbd in $(seq 0 0.05 1)
 do 
 for FWER in $(seq 1 3 4)
+do
 if [ FWER==4 ]
 then
 muN=-2
@@ -24,5 +25,6 @@ command="./runonebestpara.sh $tau $lbd $FWER $muN"
 # construct final call based on machine
 sbatch --time=06:00:00 -p RM-shared -J "tau"$tau"_lbd"$lbd"_FWER"$FWER"_muN"$muN$experiment_name $command
 fi	
+done
 done
 done    
