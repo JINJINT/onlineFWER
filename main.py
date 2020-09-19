@@ -99,7 +99,7 @@ if __name__ == "__main__":
     parser.add_argument('--mu-A', type=str, default = "4") # mu_A for gaussian tests
     #parser.add_argument('--sigma-N', type=float, default = 1) # sigma_N for gaussian test
     # parser.add_argument('--sigma-A', type=str, default = "2, 4") # sigma_A for gaussian test
-    parser.add_argument('--two-sided', action = 'store_false') # mu_A for gaussian tests
+    parser.add_argument('--two-sided', action = 'store_true') # mu_A for gaussian tests
     parser.add_argument('--gamma', type=float, default = 2) # the order of gamma sequence
     parser.add_argument('--pirange', type=str, default = '0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9') # range of pi_A
     parser.add_argument('--markov-lag', type=int, default = 0) # lag in the local dependence
