@@ -2,5 +2,6 @@
 
 for jobid in $(seq $1 $2)
 do
-scancel jobid
+echo $jobid
+scancel $jobid
 done
