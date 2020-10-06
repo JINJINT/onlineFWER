@@ -232,6 +232,27 @@ def plot_results(plot_style, whichrun, FWERrange, pirange, non_range, hyprange, 
 
             plot_errors_mat_both(xs, TDR_av, FWER_av, TDR_std, FWER_std, muN_list, plot_dirname, filename, x_label, 'FWER / Power')
 
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

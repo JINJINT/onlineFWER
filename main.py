@@ -67,9 +67,9 @@ def main():
             p.restart() 
 
         # Plot different measures over hypotheses for different FWER
-        print("Now plotting ... ")
-        for style in plotstyle:
-            plot_results(style, 0, FWERrange, pirange, non_range, hyprange, args.tau, args.lbd, muNrange, mu_A, sigma_N, args.num_hyp, args.num_runs, args.markov_lag, args.alpha0, mode, args.gamma, args.two_sided)      
+        # print("Now plotting ... ")
+        # for style in plotstyle:
+        #     plot_results(style, 0, FWERrange, pirange, non_range, hyprange, args.tau, args.lbd, muNrange, mu_A, sigma_N, args.num_hyp, args.num_runs, args.markov_lag, args.alpha0, mode, args.gamma, args.two_sided)      
 
 '''
 Algorithms:
@@ -94,8 +94,8 @@ if __name__ == "__main__":
     parser.add_argument('--num-hyp', type=int, default = 1000) # number of hypotheses
     parser.add_argument('--alpha0', type=float, default = 0.2) # FWER level
     parser.add_argument('--tau', type=float, default = 0.5) # discarding level
-    parser.add_argument('--lbd', type=float, default = 0.5) # adaptive level    
-    parser.add_argument('--mu-N', type=str, default = "-2") # mu_N for gaussian tests
+    parser.add_argument('--lbd', type=float, default = 0.05) # adaptive level    
+    parser.add_argument('--mu-N', type=str, default = "-1") # mu_N for gaussian tests
     parser.add_argument('--mu-A', type=str, default = "4") # mu_A for gaussian tests
     #parser.add_argument('--sigma-N', type=float, default = 1) # sigma_N for gaussian test
     # parser.add_argument('--sigma-A', type=str, default = "2, 4") # sigma_A for gaussian test

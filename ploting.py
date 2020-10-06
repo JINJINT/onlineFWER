@@ -14,7 +14,7 @@ mpl.rcParams['xtick.labelsize']= 20
 mpl.rcParams['ytick.labelsize']= 20
 
 import matplotlib.pyplot as plt
-#import seaborn as sns
+import seaborn as sns
 plt.switch_backend('agg')
 pgf_with_rc_fonts = {"pgf.texsystem": "pdflatex"}
 matplotlib.rcParams.update(pgf_with_rc_fonts)
@@ -92,31 +92,31 @@ def plot_errors_mat_both(xs, matrix_av_pow, matrix_av_fwer, matrix_err_pow, matr
     saveplot(dirname, filename, ax)
 
 
-# def heatmapplot(xlabel, ylabel, mat, dirname, filename, xparalist, yparalist, vmin, vmax, value = "power", extra = "_r"):
-#     sns.set(font_scale = 1)
+def heatmapplot(xlabel, ylabel, mat, dirname, filename, xparalist, yparalist, vmin, vmax, value = "power", extra = "_r"):
+    sns.set(font_scale = 1)
 
-#     if len(yparalist)<=10:
-#         ax = sns.heatmap(mat, vmin = vmin, vmax = vmax, cmap = "YlGnBu"+extra,  xticklabels = xparalist, yticklabels = yparalist, cbar_kws={'label': value})
-#         cbar_axes = ax.figure.axes[-1]
-#         ax.figure.axes[-1].yaxis.label.set_size(20)
-#         ax.set_xlabel(xlabel, fontsize=20)
-#         ax.set_ylabel(ylabel, fontsize=20)
-#     else:
-#         # the index of the position of yticks
-#         yticks = range(0, len(yparalist), 2)
-#         # the content of labels of these yticks
-#         yticklabels = [yparalist[idx] for idx in yticks]
-#         change = 0
-#         if len(xparalist)>10:
-#             xticks = range(0, len(yparalist), 2)
-#             xticklabels = [xparalist[idx] for idx in xticks]  
-#             change = 1         
-#         ax = sns.heatmap(mat, vmin = vmin, vmax = vmax, cmap = "YlGnBu"+extra,  xticklabels = xticklabels, yticklabels = yticklabels, cbar_kws={'label': value})
-#         ax.set_xlabel(xlabel, fontsize=20)
-#         ax.set_ylabel(ylabel, fontsize=20)
-#         if change == 1:  
-#             ax.set_xticks(xticks) 
-#         ax.set_yticks(yticks) 
-#     saveplot(dirname, filename+value, ax)
+    if len(yparalist)<=10:
+        ax = sns.heatmap(mat, vmin = vmin, vmax = vmax, cmap = "YlGnBu"+extra,  xticklabels = xparalist, yticklabels = yparalist, cbar_kws={'label': value})
+        cbar_axes = ax.figure.axes[-1]
+        ax.figure.axes[-1].yaxis.label.set_size(20)
+        ax.set_xlabel(xlabel, fontsize=20)
+        ax.set_ylabel(ylabel, fontsize=20)
+    else:
+        # the index of the position of yticks
+        yticks = range(0, len(yparalist), 2)
+        # the content of labels of these yticks
+        yticklabels = [yparalist[idx] for idx in yticks]
+        change = 0
+        if len(xparalist)>10:
+            xticks = range(0, len(yparalist), 2)
+            xticklabels = [xparalist[idx] for idx in xticks]  
+            change = 1         
+        ax = sns.heatmap(mat, vmin = vmin, vmax = vmax, cmap = "YlGnBu"+extra,  xticklabels = xticklabels, yticklabels = yticklabels, cbar_kws={'label': value})
+        ax.set_xlabel(xlabel, fontsize=20)
+        ax.set_ylabel(ylabel, fontsize=20)
+        if change == 1:  
+            ax.set_xticks(xticks) 
+        ax.set_yticks(yticks) 
+    saveplot(dirname, filename+value, ax)
 
 
