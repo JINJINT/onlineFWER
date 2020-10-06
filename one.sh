@@ -13,7 +13,7 @@ do
 for alpha in 0.05 0.1 0.2
 do
 echo "Submitting job for experiment "$experiment_name" with para FWER = "$FWER" muN = "$muN" muA = "$muA" gamma = "$gamma" alpha = "$alpha
-command="./runonet.sh $FWER $muN $muA $gamma $alpha"
+command="./runone.sh $FWER $muN $muA $gamma $alpha"
 # construct final call based on machine
 sbatch --time=12:00:00 -p RM-shared -J "FWER"$FWER"muN"$muN"muA"$muA"gamma"$gamma"alpha"$alpha$experiment_name $command
 done 
