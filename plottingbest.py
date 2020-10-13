@@ -48,20 +48,20 @@ def plot_best(pi, muN, muA, FWER, two_sided = False):
             print("finished the calculation for computing the power with muN %.2f and muA %.2f, and lbd %.3f and tau %.3f " %(muN, muA, lbd, tau))
 
 
-    # -------- PLOT ---------------
-    filenameexp = 'heatmap_tradeoff_MN%.1f_MA%.1f_pi%.1f_FWER%d' %  (muN, muA, pi, FWER)
+    # # -------- PLOT ---------------
+    # filenameexp = 'heatmap_tradeoff_MN%.1f_MA%.1f_pi%.1f_FWER%d' %  (muN, muA, pi, FWER)
    
-    # the heatmap of empirical power
-    heatmapplot("$\\theta$", "$\\tau$", TDR_av, plot_dirname, filenameexp, lbdlist, taulist, 0.2, 1, "") 
+    # # the heatmap of empirical power
+    # heatmapplot("$\\theta$", "$\\tau$", TDR_av, plot_dirname, filenameexp, lbdlist, taulist, 0.2, 1, "") 
 
-    # the heatmap of empirical power gap
-    heatmapplot("$\\theta$", "$\\tau$", TDR_gap_av, plot_dirname, filenameexp, lbdlist, taulist, 0, 1, "gap") 
+    # # the heatmap of empirical power gap
+    # heatmapplot("$\\theta$", "$\\tau$", TDR_gap_av, plot_dirname, filenameexp, lbdlist, taulist, 0, 1, "gap") 
 
-    # the heatmap of empirical FWER
-    heatmapplot("$\\theta$", "$\\tau$", FWER_av, plot_dirname, filenameexp, lbdlist, taulist, 0, 0.2, "FWER") 
+    # # the heatmap of empirical FWER
+    # heatmapplot("$\\theta$", "$\\tau$", FWER_av, plot_dirname, filenameexp, lbdlist, taulist, 0, 0.2, "FWER") 
 
-    # the heatmap of empirical FWER bench
-    heatmapplot("$\\theta$", "$\\tau$", FWER_bench_av, plot_dirname, filenameexp, lbdlist, taulist, 0, 0.2, "FWERbench") 
+    # # the heatmap of empirical FWER bench
+    # heatmapplot("$\\theta$", "$\\tau$", FWER_bench_av, plot_dirname, filenameexp, lbdlist, taulist, 0, 0.2, "FWERbench") 
 
 
 
