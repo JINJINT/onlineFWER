@@ -2,6 +2,7 @@
 
 # specify name of experiment, which will correspond to an input file
 experiment_name="onesided"   
+
 for FWER in 1 2 3 4
 do
 for muN in -1.5 -1 -0.5 0

@@ -66,7 +66,7 @@ def main():
             p.terminate()   
             p.restart() 
 
-        # Plot different measures over hypotheses for different FWER
+        #Plot different measures over hypotheses for different FWER
         # print("Now plotting ... ")
         # for style in plotstyle:
         #     plot_results(style, 0, FWERrange, pirange, non_range, hyprange, args.tau, args.lbd, muNrange, mu_A, sigma_N, args.num_hyp, args.num_runs, args.markov_lag, args.alpha0, mode, args.gamma, args.two_sided)      
@@ -89,19 +89,19 @@ Algorithms:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--FWERrange', type=str, default = "1") # choice of algorithms
+    parser.add_argument('--FWERrange', type=str, default = "1,2,3,4") # choice of algorithms
     parser.add_argument('--num-runs', type=int, default = 2000) # number of independent trials
     parser.add_argument('--num-hyp', type=int, default = 1000) # number of hypotheses
     parser.add_argument('--alpha0', type=float, default = 0.2) # FWER level
     parser.add_argument('--tau', type=float, default = 0.5) # discarding level
-    parser.add_argument('--lbd', type=float, default = 0.05) # adaptive level    
-    parser.add_argument('--mu-N', type=str, default = "-1") # mu_N for gaussian tests
+    parser.add_argument('--lbd', type=float, default = 0.2) # adaptive level    
+    parser.add_argument('--mu-N', type=str, default = "-1.5, -1, -0.5, 0") # mu_N for gaussian tests
     parser.add_argument('--mu-A', type=str, default = "4") # mu_A for gaussian tests
     #parser.add_argument('--sigma-N', type=float, default = 1) # sigma_N for gaussian test
     # parser.add_argument('--sigma-A', type=str, default = "2, 4") # sigma_A for gaussian test
     parser.add_argument('--two-sided', action = 'store_true') # mu_A for gaussian tests
     parser.add_argument('--gamma', type=float, default = 2) # the order of gamma sequence
-    parser.add_argument('--pirange', type=str, default = '0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9') # range of pi_A
+    parser.add_argument('--pirange', type=str, default = '0.1, 0.3, 0.5, 0.7, 0.9') # range of pi_A
     parser.add_argument('--markov-lag', type=int, default = 0) # lag in the local dependence
     parser.add_argument('--mode', type = int, default = 0) # 0 for randomized sampling, 1 for sampling with denser pi_A, 2 for sampling with the same pi_A and different range  
     parser.add_argument('--non-range', type = str, default = "")
@@ -122,7 +122,6 @@ if __name__ == "__main__":
 ##=== influence of lag
 # python main.py --markov-lag 50
 # python main.py --markov-lag 10
-
 
 ##=== influence of two-sided
 # python main.py --two-sided
